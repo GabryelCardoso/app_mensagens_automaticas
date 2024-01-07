@@ -49,27 +49,29 @@ def adicionar_elementos():
     
 #Janela que vai conter os detalhes da operação
 def janela_detalhes():
+    #configurações da janela
     janela_det = Tk()
     janela_det.title("Detalhes")
-    janela_det.maxsize(width=450, height=700)
+    janela_det.maxsize(width=350, height=500)
+    janela_det.minsize(width=350, height=500)
     
     #Textos1
     label_ct1 = Label(janela_det, text="Mensagem:")
     label_ct1.grid(column=0, row=0, pady=10)
     #caixa de texto 1
-    caixa_texto = Text(janela_det, width=40, height=9)
+    caixa_texto = Text(janela_det, width=40, height=7)
     caixa_texto.grid(column=0, row=1, padx=15)
     #textos2
     label_ct2 = Label(janela_det, text="Mensagem:")
     label_ct2.grid(column=0, row=2, pady=10)
     #caixa de texto 2
-    caixa_texto2 = Text(janela_det, width=40, height=9)
+    caixa_texto2 = Text(janela_det, width=40, height=7)
     caixa_texto2.grid(column=0, row=3, padx=15)
     #textos3
     label_ct2 = Label(janela_det, text="Mensagem:")
     label_ct2.grid(column=0, row=4, pady=10)
     #caixa de texto 3
-    caixa_texto3 = Text(janela_det, width=40, height=9)
+    caixa_texto3 = Text(janela_det, width=40, height=7)
     caixa_texto3.grid(column=0, row=5, padx=15)
     
     adicionar_elementos()
@@ -116,7 +118,9 @@ mensagem_retorno = Label(janela,text="Aguardando mensagem")
 mensagem_retorno.grid(column=0, row=7, pady=10)
 #botão para enviad os dados
 botao_entrada = Button(janela, text="Enviar mensagem", command=IniciarAuto)
+
 botao_entrada.grid(column=0, row=8,)
+
 #botão para mostrar os detalhes
 botao_detalhes = Button(janela, text="Exibir detalhes",command=janela_detalhes)
 botao_detalhes.grid(column=0, row=9,pady=10)
