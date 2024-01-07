@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 
 from app import enviar_mensagens
+#variaveis
+permissao = True
 
 #dicionarios
 contatos_enviados = {}
@@ -21,10 +23,18 @@ def LocPlanilha():
         nome_arquivo = "Nenhum arquivo selecionado"
     planilha_escolhida["text"] = nome_arquivo
     
-    
+def zerar_estruturas():
+    Enviados.clear()
+    naoEnviados.clear()
+    numEnviados.clear()
+    numNaoEnviados.clear()
+    contatos_enviados.clear()
+    contatos_naoEnviados.clear()
+
+
 
 def IniciarAuto():
-    
+    zerar_estruturas()
     planilha_caminho = planilha_escolhida["text"]
     if planilha_caminho == "Nenhum arquivo selecionado":
         mensagem_retorno["text"] = "Selecione uma planilha."
@@ -37,7 +47,9 @@ def IniciarAuto():
         tamanhoNE = len(naoEnviados)
         mensagem_retorno["text"] = f'{tamanhoE} mensagens enviadas.\n {tamanhoNE} mensagens não enviadas.'
         #botao_detalhes.config(state="normal")
+            
         
+   
 #loop para adicionar elementos da interface
 def adicionar_elementos():
     for i in range(len(Enviados)):
@@ -52,8 +64,8 @@ def janela_detalhes():
     #configurações da janela
     janela_det = Tk()
     janela_det.title("Detalhes")
-    janela_det.maxsize(width=350, height=500)
-    janela_det.minsize(width=350, height=500)
+    janela_det.maxsize(width=475, height=750)
+    janela_det.minsize(width=475, height=600)
     
     #Textos1
     label_ct1 = Label(janela_det, text="Mensagem:")
@@ -62,13 +74,13 @@ def janela_detalhes():
     caixa_texto = Text(janela_det, width=40, height=7)
     caixa_texto.grid(column=0, row=1, padx=15)
     #textos2
-    label_ct2 = Label(janela_det, text="Mensagem:")
+    label_ct2 = Label(janela_det, text="Mensagens enviadas:")
     label_ct2.grid(column=0, row=2, pady=10)
     #caixa de texto 2
     caixa_texto2 = Text(janela_det, width=40, height=7)
     caixa_texto2.grid(column=0, row=3, padx=15)
     #textos3
-    label_ct2 = Label(janela_det, text="Mensagem:")
+    label_ct2 = Label(janela_det, text="Mensagens não enviadas:")
     label_ct2.grid(column=0, row=4, pady=10)
     #caixa de texto 3
     caixa_texto3 = Text(janela_det, width=40, height=7)
@@ -76,13 +88,18 @@ def janela_detalhes():
     
     adicionar_elementos()
     print(contatos_enviados)
-    #primeira parte
-    #texto_inserido = entrada.get("1.0", "end-1c")
-    
-    
+    #Primeira Caixa
+    texto_inserido = entrada.get("1.0", "end-1c")
+    caixa_texto.insert('1.0', f'{texto_inserido}')
+    caixa_texto.configure(state="disabled")
+    #Segunda Caixa
     for chave, valor in contatos_enviados.items():
-        caixa_texto.insert( '1.0' ,f'Nome: {chave}\nNúmero: {valor}\n\n')
-    #caixa_texto.configure(state="disabled")
+        caixa_texto2.insert( '1.0' ,f'Nome: {chave} | Número: {valor}\n')
+    caixa_texto2.configure(state="disabled")
+    #Terceira Caixa
+    for chave, valor in contatos_naoEnviados.items():
+        caixa_texto3.insert( '1.0' ,f'Nome: {chave} | Número: {valor}\n\n')
+    caixa_texto3.configure(state="disabled")
     janela_det.mainloop()  
 
 
@@ -90,7 +107,8 @@ def janela_detalhes():
 janela = Tk()                   #Cria a Janela
 
 janela.title("AutoZap")         #título
-janela.maxsize(width=450, height=450)
+#janela.maxsize(width=450, height=450)
+janela.minsize(width=400, height=500)
 nova_fonte = ("Arial", 10)
 janela.option_add("*Font",nova_fonte)
 #Selecionar planilha
@@ -118,14 +136,12 @@ mensagem_retorno = Label(janela,text="Aguardando mensagem")
 mensagem_retorno.grid(column=0, row=7, pady=10)
 #botão para enviad os dados
 botao_entrada = Button(janela, text="Enviar mensagem", command=IniciarAuto)
-
 botao_entrada.grid(column=0, row=8,)
 
 #botão para mostrar os detalhes
 botao_detalhes = Button(janela, text="Exibir detalhes",command=janela_detalhes)
 botao_detalhes.grid(column=0, row=9,pady=10)
-#botao_detalhes.config(state='disable')
-
+#botão para cancelar a automação
 janela.mainloop()               #Mantém a janela aberta
 
 
