@@ -39,23 +39,24 @@ def enviar_mensagens(planilha, texto, listaV, listaF, listanumV, listanumF):
     #especificando qual página da planilha deve ser lida e guardando na variável
     pagina_clientes = workbook['Página1']
 
-    # Criando um laço que passa em cada linha da página começando a partir da segunda
+   
+
+        #Criando um laço que passa em cada linha da página começando a partir da segunda
     for linha in pagina_clientes.iter_rows(min_row=2):
         #nome, telefone
         nome = linha[0].value
         telefone = linha[1].value
-        #vencimento = linha[2].value    
         #mensagem a ser enviada
         mensagem = f'Olá {nome}, {texto}'
         # link base: https://web.whatsapp.com/send?phone=&text=
         link_mensagem_whatsapp = f'https://web.whatsapp.com/send?phone={telefone}&text={quote(mensagem)}'
-        
+            
         #abrindo whatsapp
-        
+            
         #Abrindo link da conversa
         webbrowser.open(link_mensagem_whatsapp)
         sleep(12)
-        
+            
         try:
             #localizando a imagem e o centro dela
             seta1 = pyautogui.locateCenterOnScreen('seta1.png')
@@ -72,9 +73,9 @@ def enviar_mensagens(planilha, texto, listaV, listaF, listanumV, listanumF):
             listanumV.append(telefone)
             print(listaV)
             sleep(5)
+                    
                 
-            
-            #se não conseguir executar
+                #se não conseguir executar
         except:
                 try:
                     seta2 = pyautogui.locateCenterOnScreen('seta2.png')
@@ -102,6 +103,8 @@ def enviar_mensagens(planilha, texto, listaV, listaF, listanumV, listanumF):
                     #Fechando página
                     pyautogui.hotkey('ctrl','w')
                     sleep(5)
+        
+    
     me = f'{contadorS} mensagens enviadas com sucesso'
     print(me)
     mf = f'{contadorF} mensagens não enviadas'

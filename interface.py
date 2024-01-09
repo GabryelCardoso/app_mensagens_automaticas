@@ -46,7 +46,7 @@ def IniciarAuto():
         tamanhoE = len(Enviados) 
         tamanhoNE = len(naoEnviados)
         mensagem_retorno["text"] = f'{tamanhoE} mensagens enviadas.\n {tamanhoNE} mensagens não enviadas.'
-        #botao_detalhes.config(state="normal")
+        
             
         
    
@@ -94,7 +94,7 @@ def janela_detalhes():
     caixa_texto.configure(state="disabled")
     #Segunda Caixa
     for chave, valor in contatos_enviados.items():
-        caixa_texto2.insert( '1.0' ,f'Nome: {chave} | Número: {valor}\n')
+        caixa_texto2.insert( '1.0' ,f'Nome: {chave} | Número: {valor}\n\n')
     caixa_texto2.configure(state="disabled")
     #Terceira Caixa
     for chave, valor in contatos_naoEnviados.items():
@@ -108,7 +108,7 @@ janela = Tk()                   #Cria a Janela
 
 janela.title("AutoZap")         #título
 #janela.maxsize(width=450, height=450)
-janela.minsize(width=400, height=500)
+janela.minsize(width=400, height=430)
 nova_fonte = ("Arial", 10)
 janela.option_add("*Font",nova_fonte)
 #Selecionar planilha
@@ -141,7 +141,6 @@ botao_entrada.grid(column=0, row=8,)
 #botão para mostrar os detalhes
 botao_detalhes = Button(janela, text="Exibir detalhes",command=janela_detalhes)
 botao_detalhes.grid(column=0, row=9,pady=10)
-#botão para cancelar a automação
 janela.mainloop()               #Mantém a janela aberta
 
 
